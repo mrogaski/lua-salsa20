@@ -85,3 +85,23 @@ function hash(b)
     return h
 end
 
+function expand(k, n)
+    assert(#k == 16 or #k == 32)
+    assert(#n == 16)
+    local c = { string.byte(string.format("expand %2d-byte k", #k), 1, 16) } 
+    local x = {}
+    for i =  1,  4 do table.insert(x, c[i]) end
+    for i =  1, 16 do table.insert(x, k[i]) end
+    for i =  5,  8 do table.insert(x, c[i]) end
+    for i =  1, 16 do table.insert(x, n[i]) end
+    for i =  9, 12 do table.insert(x, c[i]) end
+    if #k == 16 then
+        for i =  1, 16 do table.insert(x, k[i]) end
+    else
+        for i = 17, 32 do table.insert(x, k[i]) end
+    end
+    for i = 13, 16 do table.insert(x, c[i]) end
+    return x
+end
+
+
