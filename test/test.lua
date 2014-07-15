@@ -46,6 +46,32 @@ function test_map(desc, f, n, data)
     end
 end
 
+function test_map_inv(desc, f, n, data)
+    local c = 0
+    local pass = 0
+    for i, v in ipairs(data) do
+        local arg = v[1]
+        local out = v[2]
+        c = c + 1
+        local res = f(arg)
+        local err = false
+        for i = 1, n do
+            if res[i] ~= out[i] then
+                err = true
+                break
+            end
+        end
+        if not err then
+            pass = pass + 1
+        end
+    end
+    if pass == c then
+        print(string.format("% 32s => PASS: %d/%d", desc, pass, c))
+    else
+        print(string.format("% 32s => FAIL: %d/%d", desc, pass, c))
+    end
+end
+
 
 local data = {
     {
@@ -157,4 +183,25 @@ data = {
     { { 255, 255, 255, 250 },   0xfaffffff },
 }
 test_map("littleendian()", salsa20.littleendian, 4, data)
+
+data = {
+    { 0x00000000, { 0, 0, 0, 0 } },
+    { 0x091e4b56, { 86, 75, 30, 9 } },
+    { 0xfaffffff, { 255, 255, 255, 250 } },
+}
+test_map_inv("littleendian_inv()", salsa20.littleendian_inv, 4, data)
+
+data = {
+    {
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+    },
+}
+test_tuple("hash()", salsa20.hash, 64, data)
 

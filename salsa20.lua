@@ -14,6 +14,7 @@ local function apply(f, y, z, slice)
 end
 
 function quarterround(y)
+    assert(#y == 4)
     local z = {}
     z[2] = bit32.bxor(y[2], bit32.lrotate(y[1] + y[4], 7))
     z[3] = bit32.bxor(y[3], bit32.lrotate(z[2] + y[1], 9))
@@ -23,6 +24,7 @@ function quarterround(y)
 end
 
 function rowround(y)
+    assert(#y == 16)
     local z = {}
     apply(salsa20.quarterround, y, z, {1, 2, 3, 4})
     apply(salsa20.quarterround, y, z, {6, 7, 8, 5})
@@ -32,6 +34,7 @@ function rowround(y)
 end
 
 function columnround(y)
+    assert(#y == 16)
     local z = {}
     apply(salsa20.quarterround, y, z, {1, 5, 9, 13})
     apply(salsa20.quarterround, y, z, {6, 10, 14, 2})
@@ -40,11 +43,45 @@ function columnround(y)
     return z
 end
 
-function doubleround(x)
-    return salsa20.rowround(salsa20.columnround(x))
+function doubleround(y)
+    assert(#y == 16)
+    return salsa20.rowround(salsa20.columnround(y))
 end
 
 function littleendian(b)
+    assert(#b == 4)
     return b[1] + 2^8 * b[2] + 2^16 * b[3] + 2^24 * b[4]
+end
+
+function littleendian_inv(x)
+    local b = {}
+    for i = 1, 4 do
+        b[i] = bit32.band(bit32.rshift(x, (i - 1) * 8), 0xFF)
+    end
+    return b
+end
+
+function hash(b)
+    assert(#b == 64)
+    local x = {}
+    for i = 1, 16 do
+        local quad = {}
+        for j = 1, 4 do
+            quad[j] = b[((i - 1) * 4) + j]
+        end
+        x[i] = salsa20.littleendian(quad)
+    end
+    local z = salsa20.doubleround(x)
+    for i = 1, 9 do
+        z = salsa20.doubleround(z)
+    end
+    local h = {}
+    for i = 1, 16 do
+        local y = salsa20.littleendian_inv(z[i] + x[i])
+        for j = 1, 4 do
+            h[((i - 1) * 4) + j] = y[j]
+        end 
+    end
+    return h
 end
 
