@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+
+
+<h1>LuaDoc</h1>
+<ul>
+	
+	<li><a href="../index.html">Index</a></li>
+	
+</ul>
+
+
+<!-- Module list -->
+
+
+
+<!-- File list -->
+
+<h1>Files</h1>
+<ul>
+
+	<li><strong>salsa20.lua</strong></li>
+	
+</ul>
+
+
+
+
+
+
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h1>File <code>salsa20.lua</code></h1>
+
+
+
+
+
+
+
+<h2>Functions</h2>
+<table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#salsa20.decrypt">salsa20.decrypt</a>&nbsp;(key, nonce, ciphertext, rounds)</td>
+	<td class="summary">Decrypt a string.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#salsa20.decrypt_table">salsa20.decrypt_table</a>&nbsp;(key, nonce, ciphertext, rounds)</td>
+	<td class="summary">Decrypt a string.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#salsa20.encrypt">salsa20.encrypt</a>&nbsp;(key, nonce, plaintext, rounds)</td>
+	<td class="summary">Encrypt a string.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#salsa20.encrypt_table">salsa20.encrypt_table</a>&nbsp;(key, nonce, plaintext, rounds)</td>
+	<td class="summary">Encrypt a table of strings.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#salsa20.generate">salsa20.generate</a>&nbsp;(k, v, i, rounds)</td>
+	<td class="summary">Generate the i^th 64-byte block of the Salsa20_k(v) 2^70-byte sequence.</td>
+	</tr>
+
+</table>
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="salsa20.decrypt"></a><strong>salsa20.decrypt</strong>&nbsp;(key, nonce, ciphertext, rounds)</dt>
+<dd>
+Decrypt a string.
+
+
+<h3>Parameters:</h3>
+<ul>
+	
+	<li>
+	  <code><em>key</em></code>: A 16-octet or 32-octet bytestring.
+	</li>
+	
+	<li>
+	  <code><em>nonce</em></code>: An 8-octet bytestring nonce.
+	</li>
+	
+	<li>
+	  <code><em>ciphertext</em></code>: The encrypted message.
+	</li>
+	
+	<li>
+	  <code><em>rounds</em></code>: Optional number of rounds. My be 20 (default), 12, or 8.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+<ul>The unencrypted message.</ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="salsa20.decrypt_table"></a><strong>salsa20.decrypt_table</strong>&nbsp;(key, nonce, ciphertext, rounds)</dt>
+<dd>
+Decrypt a string.
+
+
+<h3>Parameters:</h3>
+<ul>
+	
+	<li>
+	  <code><em>key</em></code>: A 16-octet or 32-octet bytestring.
+	</li>
+	
+	<li>
+	  <code><em>nonce</em></code>: An 8-octet bytestring nonce.
+	</li>
+	
+	<li>
+	  <code><em>ciphertext</em></code>: The encrypted messages.
+	</li>
+	
+	<li>
+	  <code><em>rounds</em></code>: Optional number of rounds. My be 20 (default), 12, or 8.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+<ul>The unencrypted messages.</ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="salsa20.encrypt"></a><strong>salsa20.encrypt</strong>&nbsp;(key, nonce, plaintext, rounds)</dt>
+<dd>
+Encrypt a string.
+
+
+<h3>Parameters:</h3>
+<ul>
+	
+	<li>
+	  <code><em>key</em></code>: A 16-octet or 32-octet bytestring.
+	</li>
+	
+	<li>
+	  <code><em>nonce</em></code>: An 8-octet bytestring nonce.
+	</li>
+	
+	<li>
+	  <code><em>plaintext</em></code>: The unencrypted message.
+	</li>
+	
+	<li>
+	  <code><em>rounds</em></code>: Optional number of rounds. My be 20 (default), 12, or 8.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+<ul>The encrypted message.</ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="salsa20.encrypt_table"></a><strong>salsa20.encrypt_table</strong>&nbsp;(key, nonce, plaintext, rounds)</dt>
+<dd>
+Encrypt a table of strings.
+
+
+<h3>Parameters:</h3>
+<ul>
+	
+	<li>
+	  <code><em>key</em></code>: A 16-octet or 32-octet bytestring.
+	</li>
+	
+	<li>
+	  <code><em>nonce</em></code>: An 8-octet bytestring nonce.
+	</li>
+	
+	<li>
+	  <code><em>plaintext</em></code>: The unencrypted messages.
+	</li>
+	
+	<li>
+	  <code><em>rounds</em></code>: Optional number of rounds. My be 20 (default), 12, or 8.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+<ul>The encrypted messages.</ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="salsa20.generate"></a><strong>salsa20.generate</strong>&nbsp;(k, v, i, rounds)</dt>
+<dd>
+Generate the i^th 64-byte block of the Salsa20_k(v) 2^70-byte sequence.
+
+
+<h3>Parameters:</h3>
+<ul>
+	
+	<li>
+	  <code><em>k</em></code>: A 16-byte or 32-byte sequence representing the secret key.
+	</li>
+	
+	<li>
+	  <code><em>v</em></code>: An 8-byte sequence representing the nonce.
+	</li>
+	
+	<li>
+	  <code><em>i</em></code>: An 8-byte sequence representing the stream position of the 64-byte block.
+	</li>
+	
+	<li>
+	  <code><em>rounds</em></code>: Optional number of rounds. My be 20 (default), 12, or 8.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+<ul>A 64-byte output block.</ul>
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+	<p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a></p>
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->	
+</body>
+</html>
