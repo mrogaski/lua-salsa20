@@ -153,7 +153,7 @@ end
 -- @param k A 16-byte or 32-byte sequence representing the secret key.
 -- @param v An 8-byte sequence representing the nonce.
 -- @param i An 8-byte sequence representing the stream position of the 64-byte block.
--- @param rounds Optional number of rounds. My be 20 (default), 12, or 8.
+-- @param rounds Optional number of rounds. May be 20 (default), 12, or 8.
 -- @return A 64-byte output block.
 function salsa20.generate(k, v, i, rounds)
     assert(#k == 16 or #k == 32)
@@ -171,7 +171,7 @@ end
 -- @param key A 16-octet or 32-octet bytestring.
 -- @param nonce An 8-octet bytestring nonce.
 -- @param plaintext The unencrypted message.
--- @param rounds Optional number of rounds. My be 20 (default), 12, or 8.
+-- @param rounds Optional number of rounds. May be 20 (default), 12, or 8.
 -- @return The encrypted message.
 function salsa20.encrypt(key, nonce, plaintext, rounds)
     assert(type(key) == "string" and (key:len() == 16 or key:len() == 32))
@@ -199,7 +199,7 @@ end
 -- @param key A 16-octet or 32-octet bytestring.
 -- @param nonce An 8-octet bytestring nonce.
 -- @param ciphertext The encrypted message.
--- @param rounds Optional number of rounds. My be 20 (default), 12, or 8.
+-- @param rounds Optional number of rounds. May be 20 (default), 12, or 8.
 -- @return The unencrypted message.
 function salsa20.decrypt(key, nonce, ciphertext, rounds)
     -- The easiest thing I've done all week.
@@ -210,7 +210,7 @@ end
 -- @param key A 16-octet or 32-octet bytestring.
 -- @param nonce An 8-octet bytestring nonce.
 -- @param plaintext The unencrypted messages.
--- @param rounds Optional number of rounds. My be 20 (default), 12, or 8.
+-- @param rounds Optional number of rounds. May be 20 (default), 12, or 8.
 -- @return The encrypted messages.
 function salsa20.encrypt_table(key, nonce, plaintext, rounds)
     assert(type(key) == "string" and (key:len() == 16 or key:len() == 32))
@@ -242,7 +242,7 @@ end
 -- @param key A 16-octet or 32-octet bytestring.
 -- @param nonce An 8-octet bytestring nonce.
 -- @param ciphertext The encrypted messages.
--- @param rounds Optional number of rounds. My be 20 (default), 12, or 8.
+-- @param rounds Optional number of rounds. May be 20 (default), 12, or 8.
 -- @return The unencrypted messages.
 function salsa20.decrypt_table(key, nonce, ciphertext, rounds)
     -- The second easiest thing I've done all week.
