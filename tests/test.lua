@@ -24,7 +24,8 @@ SOFTWARE.
 
 --]]--------------------------------------------------------------------------
 
-salsa20 = require "salsa20"
+package.path = package.path..';../salsa20.lua'
+local salsa20 = require "salsa20"
 
 local result
 local pass = true
