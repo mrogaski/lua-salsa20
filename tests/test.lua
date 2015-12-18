@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Mark Rogaski
+Copyright (c) 2014-2015, Mark Rogaski.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,9 @@ SOFTWARE.
 --]]--------------------------------------------------------------------------
 
 salsa20 = require "salsa20"
+
+local result
+local pass = true
 
 function test_tuple(desc, f, k, n, data)
     local c = 0
@@ -52,8 +55,10 @@ function test_tuple(desc, f, k, n, data)
     end
     if pass == c then
         print(string.format("% 32s => PASS: %d/%d", desc, pass, c))
+        return true
     else
         print(string.format("% 32s => FAIL: %d/%d", desc, pass, c))
+        return false
     end
 end
 
@@ -71,8 +76,10 @@ function test_map(desc, f, n, data)
     end
     if pass == c then
         print(string.format("% 32s => PASS: %d/%d", desc, pass, c))
+        return true
     else
         print(string.format("% 32s => FAIL: %d/%d", desc, pass, c))
+        return false
     end
 end
 
@@ -97,8 +104,10 @@ function test_map_inv(desc, f, n, data)
     end
     if pass == c then
         print(string.format("% 32s => PASS: %d/%d", desc, pass, c))
+        return true
     else
         print(string.format("% 32s => FAIL: %d/%d", desc, pass, c))
+        return false
     end
 end
 
@@ -126,8 +135,10 @@ function test_expand(desc, f, data)
     end
     if pass == c then
         print(string.format("% 32s => PASS: %d/%d", desc, pass, c))
+        return true
     else
         print(string.format("% 32s => FAIL: %d/%d", desc, pass, c))
+        return false
     end
 end
 
@@ -161,7 +172,9 @@ local data = {
         { 0x3e2f308c, 0xd90a8f36, 0x6ab2a923, 0x2883524c }
     },
 }
-test_tuple("quarterround", salsa20.quarterround, 4, 1, data)
+
+pass = pass and test_tuple("quarterround", salsa20.quarterround, 4, 1, data)
+
 
 data = {
     {
@@ -185,7 +198,8 @@ data = {
           0x0040ede5, 0xb545fbce, 0xd257ed4f, 0x1818882d }
     },
 }
-test_tuple("rowround", salsa20.rowround, 16, 1, data)
+
+pass = pass and test_tuple("rowround", salsa20.rowround, 16, 1, data)
 
 data = {
     {
@@ -209,7 +223,8 @@ data = {
           0x481c2027, 0x53a8e4b5, 0x4c1f89c5, 0x3f78c9c8 }
     },
 }
-test_tuple("columnround", salsa20.columnround, 16, 1, data)
+
+pass = pass and test_tuple("columnround", salsa20.columnround, 16, 1, data)
 
 data = {
     {
@@ -233,21 +248,24 @@ data = {
           0xa74b2ad6, 0xbc331c5c, 0x1dda24c7, 0xee928277 }
     }
 }
-test_tuple("doubleround", salsa20.doubleround, 16, 1, data)
+
+pass = pass and test_tuple("doubleround", salsa20.doubleround, 16, 1, data)
 
 data = {
     { { 0, 0, 0, 0 },           0x00000000 },
     { { 86, 75, 30, 9 },        0x091e4b56 },
     { { 255, 255, 255, 250 },   0xfaffffff },
 }
-test_map("littleendian", salsa20.littleendian, 4, data)
+
+pass = pass and test_map("littleendian", salsa20.littleendian, 4, data)
 
 data = {
     { 0x00000000, { 0, 0, 0, 0 } },
     { 0x091e4b56, { 86, 75, 30, 9 } },
     { 0xfaffffff, { 255, 255, 255, 250 } },
 }
-test_map_inv("littleendian_inv", salsa20.littleendian_inv, 4, data)
+
+pass = pass and test_map_inv("littleendian_inv", salsa20.littleendian_inv, 4, data)
 
 data = {
     {
@@ -281,7 +299,8 @@ data = {
            27, 111, 114, 114, 118,  40, 152, 157, 180,  57,  27,  94, 107,  42, 236,  35 }
     },
 }
-test_tuple("hash", salsa20.hash, 64, 1, data)
+
+pass = pass and test_tuple("hash", salsa20.hash, 64, 1, data)
 
 data = {
     {
@@ -295,7 +314,8 @@ data = {
           122, 127, 195, 185, 185, 204, 188,  90, 245,   9, 183, 248, 226,  85, 245, 104 }
     },
 }
--- test_tuple("hash^1000000", salsa20.hash, 64, 1000000, data)
+
+-- pass = pass and test_tuple("hash^1000000", salsa20.hash, 64, 1000000, data)
 
 data = {
     {
@@ -316,7 +336,8 @@ data = {
             5,   6,   7,   8,   9,  10,  11,  12,  13,  14,  15,  16, 116, 101,  32, 107 }
     },
 }
-test_expand("expand", salsa20.expand, data)
+
+pass = pass and test_expand("expand", salsa20.expand, data)
 
 data = {
     {
@@ -340,5 +361,7 @@ data = {
            14, 232,   5,  16, 151, 140, 183, 141, 171,   9, 122, 181, 104, 182, 177, 193 }
     },
 }
-test_tuple("expand + hash", salsa20.hash, 64, 1, data)
 
+pass = pass and test_tuple("expand + hash", salsa20.hash, 64, 1, data)
+
+os.exit(pass and 0 or 1)
