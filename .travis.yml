@@ -1,0 +1,14 @@
+language: lua
+
+cache: apt
+
+before_install:
+    - sudo apt-get update
+
+install:
+    - sudo apt-get install --force-yes lua5.2
+
+script:
+    - cd tests
+    - lua5.2 test.lua
+    
