@@ -2,7 +2,7 @@
 
 This project uses [Semantic Versioning](http://semver.org/).
 
-## 1.0.1 -- 2015-12-21
+## [1.0.1] -- 2015-12-21
 
 ### Added
 - Added background and usage documentation the the readme file. 
@@ -14,3 +14,6 @@ Initial release.
 ## 1.0.0-beta -- 2014-07-16
 
 Beta release.
+
+
+[1.0.1]: https://github.com/mrogaski/lua-salsa20/compare/v1.0.0...v1.0.1
