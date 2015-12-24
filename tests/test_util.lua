@@ -24,9 +24,9 @@ SOFTWARE.
 
 --]]--------------------------------------------------------------------------
 
-package.path = package.path..';../salsa20.lua'
-local salsa20 = require "salsa20"
-
-local pass = true
-
-return pass
+function summary(desc, pass, count)
+    local success = pass == count
+    local status = success and 'PASS' or 'FAIL'
+    print(string.format("% 32s => %s: %d/%d", desc, status, pass, count))
+    return success
+end
