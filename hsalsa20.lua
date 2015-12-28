@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2015, Mark Rogaski.
+Copyright (c) 2014-2015,  Mark Rogaski.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,16 @@ SOFTWARE.
 
 --]]--------------------------------------------------------------------------
 
-function summary(desc, pass, count)
-    local success = pass == count
-    local status = success and 'PASS' or 'FAIL'
-    print(string.format("% 32s => %s: %d/%d", desc, status, pass, count))
-    return success
+local hsalsa20 = {}
+
+--- Generate the a 64-byte intermediate key from a 32-byte key and a 16-byte nonce.
+-- @param k 32-byte sequence representing the secret key.
+-- @param v An 16-byte sequence representing the nonce.
+-- @param rounds Optional number of rounds. May be 20 (default), 12, or 8.
+-- @return A 64-byte output block.
+function hsalsa20.generate(k, v, rounds)
+    assert(#k == 32)
+    assert(#v == 16)
 end
+
+return hsalsa20

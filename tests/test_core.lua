@@ -26,10 +26,13 @@ SOFTWARE.
 
 package.path = package.path..';../salsa20.lua'
 local salsa20 = require "salsa20"
-require "test_util"
 
-local result
-local pass = true
+function summary(desc, pass, count)
+    local success = pass == count
+    local status = success and 'PASS' or 'FAIL'
+    print(string.format("% 32s => %s: %d/%d", desc, status, pass, count))
+    return success
+end
 
 function test_tuple(desc, f, k, n, data)
     local c = 0
@@ -119,6 +122,9 @@ function test_expand(desc, f, data)
     end
     return summary(desc, pass, c)
 end
+
+local result
+local pass = true
 
 local data = {
     {

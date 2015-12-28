@@ -10,5 +10,8 @@ install:
 
 script:
     - cd tests
-    - lua5.2 test.lua
+    - lua5.2 test_core.lua
+    - lua5.2 test_salsa20.lua
+    - lua5.2 test_hsalsa20.lua
+    - lua5.2 test_xsalsa20.lua
     

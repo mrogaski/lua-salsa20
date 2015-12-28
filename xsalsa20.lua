@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2015, Mark Rogaski.
+Copyright (c) 2014-2015,  Mark Rogaski.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,25 +24,6 @@ SOFTWARE.
 
 --]]--------------------------------------------------------------------------
 
-local pass = true
+local xsalsa20 = {}
 
-print('Testing SalsaCore ...')
-pass = pass and require "test_core"
-print()
-
-print('Testing Salsa20 ...')
-pass = pass and require "test_salsa20"
-print()
-
-print('Testing HSalsa20 ...')
-pass = pass and require "test_hsalsa20"
-print()
-
-print('Testing XSalsa20 ...')
-pass = pass and require "test_xsalsa20"
-print()
-
-local result = pass and 'PASS' or 'FAIL'
-print(string.format('Result: %s', result))
-
-os.exit(pass and 0 or 1)
+return xsalsa20
